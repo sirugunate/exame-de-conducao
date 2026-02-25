@@ -1,0 +1,7 @@
+[2026-02-23 15:36] Instruendo: sir | Resultado: 1/5 (20.0%)
+[2026-02-23 15:42] Instruendo: Ismael | Resultado: 2/5 (40.0%)
+[2026-02-24 15:08] Instruendo: Rugunate | Resultado: 1/5 (20.0%)
+[2026-02-24 15:16] Instruendo: Joao | Resultado: 4/5 (80.0%)
+[2026-02-24 15:24] Instruendo: joao | Resultado: 2/2 (100.0%)
+[2026-02-24 15:29] Instruendo: sir | Resultado: 3/4 (75.0%)
+[2026-02-24 15:30] Instruendo: sir | Resultado: 2/2 (100.0%)
