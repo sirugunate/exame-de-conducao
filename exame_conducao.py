@@ -49,7 +49,6 @@ def ver_registos():
         
     input("\n[Pressione ENTER para voltar ao Menu Principal]")
 
-# NOVO: Agora a função aceita um parâmetro chamado 'categoria_filtro'
 def iniciar_exame(categoria_filtro=None):
     os.system('clear') 
     
@@ -67,37 +66,63 @@ def iniciar_exame(categoria_filtro=None):
     if not dados:
         return 
 
-    # --- BLOCO NOVO: A LÓGICA DE FILTRAGEM ---
-    # Se o professor escolheu uma categoria específica no Menu...
+    # 1. Definir o tipo de exame para o registo na secretaria
+    if categoria_filtro is None:
+        tipo_exame = "Exame Completo"
+    else:
+        tipo_exame = f"Módulo: {categoria_filtro}"
+
+    # 2. Lógica de Filtragem (se o professor escolheu um módulo)
     if categoria_filtro is not None:
         dados_filtrados = []
         for pergunta in dados:
-            # O .get() procura a etiqueta 'categoria' de forma segura
             if pergunta.get('categoria') == categoria_filtro:
                 dados_filtrados.append(pergunta)
         
-        dados = dados_filtrados # Substituímos todas as perguntas apenas pelas filtradas
-        print(f"\n📚 MÓDULO DE ESTUDO: {categoria_filtro.upper()}")
-    # ------------------------------------------
+        dados = dados_filtrados 
+        print(f"\n📚 {tipo_exame.upper()}")
 
-    # Se a categoria escolhida não tiver perguntas, o programa avisa
+    # 3. Travar o exame se a categoria não tiver perguntas
     if len(dados) == 0:
         print("Ainda não existem perguntas registadas para esta categoria.")
         input("\n[Pressione ENTER para voltar ao Menu]")
         return
 
     random.shuffle(dados)
+    if len(dados) == 0:
+        print("Ainda não existem perguntas registadas para esta categoria.")
+        input("\n[Pressione ENTER para voltar ao Menu]")
+        return
+
+    # 1. Baralha TODAS as perguntas disponíveis na categoria escolhida (ou em todas)
+    random.shuffle(dados)
+    
+    # --- BLOCO NOVO: O LIMITE DO EXAME ---
+    limite_perguntas = 25 # Pode alterar para 25 aqui quando quiser!
+    
+    # O Python "corta" a lista. Fica apenas da posição 0 até ao limite.
+    # Se a base de dados tiver apenas 5 perguntas, ele inteligentemente ignora o limite de 21 e usa as 5.
+    dados = dados[:limite_perguntas] 
+    # --------------------------------------
     
     pontuacao = 0
-    total_perguntas = len(dados)
+    # O total de perguntas agora será 25 (ou menos, se a sua base ainda for pequena)
+    total_perguntas = len(dados) 
     opcoes_validas = ['A', 'B', 'C']
 
+    
+    # 4. O Loop das Perguntas
     for i, item in enumerate(dados, 1):
         print(f"\nQUESTÃO {i}/{total_perguntas}: {item['pergunta']}")
+        
+        # VERIFICA SE EXISTE IMAGEM
+        if item.get("imagem") != "" and item.get("imagem") is not None:
+            print(f"🖼️ [IMAGEM NO ECRÃ DO TELEMÓVEL: {item['imagem']}]")
         
         for opcao in item['opcoes']:
             print(f"   {opcao}")
         
+        # 5. O Porteiro: Validação rigorosa do input
         while True:
             resposta = input("\nSua resposta (A/B/C): ").strip().upper()
             if resposta in opcoes_validas:
@@ -105,6 +130,7 @@ def iniciar_exame(categoria_filtro=None):
             else:
                 print(f"⚠️ Erro: '{resposta}' não é uma opção válida. Tente A, B ou C.")
         
+        # 6. Correção
         if resposta == item['resposta_correta']:
             print("✅ CORRETO!")
             pontuacao += 1
@@ -115,6 +141,7 @@ def iniciar_exame(categoria_filtro=None):
         input("[Pressione ENTER para continuar...]")
         os.system('clear') 
 
+    # 7. Relatório Final
     print(f"\n=== RESULTADO FINAL DE {nome.upper()} ===")
     print(f"Acertou {pontuacao} de {total_perguntas} perguntas.")
     percentagem = (pontuacao / total_perguntas) * 100
@@ -125,20 +152,10 @@ def iniciar_exame(categoria_filtro=None):
     else:
         print("📚 REPROVADO. Estude mais o Decreto-Lei 1/2011.")
 
-    # ... (código existente acima) ...
-    
-    # --- BLOCO NOVO: DEFINIR O TIPO DE EXAME PARA O REGISTO ---
-    if categoria_filtro is None:
-        tipo_exame = "Exame Completo"
-    else:
-        tipo_exame = f"Módulo: {categoria_filtro}"
-    # ----------------------------------------------------------
-
-    # --- LÓGICA DE FILTRAGEM (Já existia) ---
-    if categoria_filtro is not None:
-        dados_filtrados = []
-# ... (resto do código do exame) ...
-
+    # 8. Guardar na "Secretaria" enviando as 5 informações
+    guardar_resultado(nome, pontuacao, total_perguntas, percentagem, tipo_exame)
+    print("\n(O seu resultado foi guardado nos registos da escola.)")
+    input("\n[Pressione ENTER para voltar ao Menu Principal]")
 def menu_principal():
     while True:
         os.system('clear')

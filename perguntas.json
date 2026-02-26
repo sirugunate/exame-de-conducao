@@ -1,4 +1,11 @@
-[
+[{
+        "pergunta": "O que indica este sinal de trânsito?",
+        "imagem": "sinais/stop.png",
+        "opcoes": ["A) Paragem obrigatória", "B) Cedência de passagem", "C) Fim de limite de velocidade"],
+        "resposta_correta": "A",
+        "artigo": "Sinalização de Cedência de Passagem (Sinal B2)",
+        "categoria": "Sinais de Trânsito"
+    },
     {
         "pergunta": "Em Moçambique, o trânsito de veículos deve ser feito por qual lado?",
         "opcoes": ["A) Direita", "B) Esquerda", "C) Centro"],
@@ -27,4 +34,5 @@
         "artigo": "Artigo 4: É proibido colocar obstáculos.",
         "categoria": "Regras de Trânsito"
     }
+    
 ]

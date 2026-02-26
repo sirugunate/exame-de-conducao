@@ -1,0 +1,6 @@
+[2026-02-26 14:15] Resultado: 4/5 (80%)
+[2026-02-26 14:18] Resultado: 3/5 (60%)
+[2026-02-26 14:29] Módulo: Sinais de Trânsito | Res: 1/1 (100%)
+[2026-02-26 14:29] Módulo: Contra-ordenações e Multas | Res: 0/2 (0%)
+[2026-02-26 14:38] Módulo: Sinais de Trânsito | Res: 1/1 (100%)
+[2026-02-26 14:51] Exame Completo | Res: 3/5 (60%)
